@@ -3,7 +3,7 @@ import java.lang.management.ManagementFactory;
 public class Main {
 
     public static void main(String[] args) throws InterruptedException {
-        System.out.println("pid: " + ManagementFactory.getRuntimeMXBean().getName());
+        System.out.println("pid: " + ManagementFactory.getRuntimeMXBean().getName());// for jconsole
 
 
         Runtime runtime = Runtime.getRuntime();
@@ -19,11 +19,12 @@ public class Main {
 
             long mem2 = runtime.totalMemory() - runtime.freeMemory();
 
-            System.out.println("Empty array size: " + (mem2 - mem)/size);
+            System.out.println("Reference size: " + (mem2 - mem) / size);
 
             System.out.println("New array of size: " + array.length + " created");
             for (int i = 0; i < size; i++) {
-                array[i] = new Integer(123);
+//                array[i] = new Integer(123);
+                array[i] = new String(new char[1]);
 //                array[i] = new String(""); //String pool
 //                array[i] = new String(new char[0]); //without String pool
                 //array[i] = new MyClass();
@@ -31,10 +32,9 @@ public class Main {
             System.out.println("Created " + size + " objects.");
 
             long mem3 = runtime.totalMemory() - runtime.freeMemory();
-            System.out.println("Object[] size: " + (mem3 - mem2)/size);
+            System.out.println("Object size: " + (mem3 - mem2) / size);
 
-            System.gc();
-            Thread.sleep(1000); //wait for 1 sec
+            Thread.sleep(1000);
         }
 
     }
